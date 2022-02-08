@@ -1,9 +1,9 @@
-import React from 'react';
+import { useState} from 'react';
 import { Box, Button, Text, Image } from '@skynexui/components';
 import appConfig from '../../config.json';
 
 export function ButtonSendSticker(props) {
-  const [isOpen, setOpenState] = React.useState('');
+  const [isOpen, setOpenState] = useState('');
 
   return (
     <Box
@@ -12,24 +12,23 @@ export function ButtonSendSticker(props) {
       }}
     >
       <Button
+        buttonColors={{
+          contrastColor: `${appConfig.theme.colors.primary[550]}`,
+          mainColor: `${appConfig.theme.colors.neutrals[800]}`,
+          mainColorLight: `${appConfig.theme.colors.neutrals[600]}`,
+          mainColorStrong: `${appConfig.theme.colors.neutrals[900]}`
+        }}
         styleSheet={{
           borderRadius: '50%',
           padding: '0 3px 0 0',
           minWidth: '50px',
           minHeight: '50px',
           fontSize: '20px',
-          marginBottom: '8px',
+          margin: '0 8px',
           lineHeight: '0',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: appConfig.theme.colors.neutrals[300],
-          filter: isOpen ? 'grayscale(0)' : 'grayscale(1)',
-          hover: {
-            filter: 'grayscale(0)',
-          }
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
         }}
-        label="😋"
+        iconName="smile"
         onClick={() => setOpenState(!isOpen)}
       />
       {isOpen && (
@@ -74,7 +73,7 @@ export function ButtonSendSticker(props) {
             {appConfig.stickers.map((sticker) => (
               <Text
                 onClick={() => {
-                  // console.log('[DENTRO DO COMPONENTE] Clicou no sticker:', sticker);
+                  // console.log('[DENTRO DO COMPONENTE] Clicou no sticker', sticker);
                   if (Boolean(props.onStickerClick)) {
                     props.onStickerClick(sticker);
                   }
@@ -92,7 +91,7 @@ export function ButtonSendSticker(props) {
                   }
                 }}
               >
-                <Image src={sticker} />
+                <Image styleSheet={{cursor: 'pointer'}} src={sticker} />
               </Text>
             ))}
           </Box>
